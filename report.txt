@@ -1,0 +1,31 @@
+Manshi Sagar, 2020CS50429 Richa Yadav, 2020CS50438
+
+Approach by Beam Search:
+Step 1. From the input sentence, extract the space-separated words in a list : wordlist
+Step 2. From wordlist, randomly choose a word and add it in beam 
+Step 3. Pop a word from beam : beamword
+Step 4. For this beamword, randomly choose an index. Replace the character at this index (in beamword) with characters from new confusion matrix and store them in a list and a dictionary : STORE and COST . Repeat this till all characters of beamword are covered.
+Step 5. Keep adding  all successors to STORE and COST till beam is empty.
+Step 6. Now, choose k best (minimum cost) successors from STORE and COST and add them in BEAM. 
+Step 7. Keep repeating steps 3 to 6 till all words of wordlist have been chosen randomly once.
+
+
+Previous Approach by Hill Climbing:
+
+Rejected because it was getting stuck at local minimas.
+
+Prepare a list of all indices in start_state at which the characters != ‘ ‘  : randomchoice
+Prepare transpose of the confusion matrix : confusion matrix new st for every character, we store all possible characters with which it can be replaced 
+
+We choose a random element from randomchoice ie, a random index of the best-state that doesn’t contain space. 
+Random character = character at the chosen index in start_state
+Each time in the while loop we are searching for a more optimal character that can be placed at the random character which minimizes the cost function. 
+In a while loop we are taking a confusion row that tells which character can come at the random character .
+State = random character
+Then for that random character we are checking every character present in confusion row, so there could be only 2 cases, i.e.
+
+1.	The character is already correct, so if we change the character in a temporary string and check its cost function then the cost function increases for every character present in the confusion row.
+2.	The character is not correctly scanned and some characters of confusion row minimize the cost function. 
+
+In case 1, we will not change the best-state and choose a new state randomly , ie,  choose the next random character, but if the conditions of case 2 fulfill then we will change the character in the current state with the character from the confusion row that minimizes the cost function most. 
+We made a binary variable that stores ‘True’ if conditions of case 2 fulfills, then we are storing that index in another list named localmin, because there could be a case of local minima, for example if we change ‘g’ of word ‘grane’ with ‘c’ we get ‘crane’ and we are getting less cost function as it is meaningful word but the global minima for this word comes.
