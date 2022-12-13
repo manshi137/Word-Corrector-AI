@@ -102,7 +102,6 @@ class SentenceCorrector(object):
 
 
         
-        
-        
+      
         # You should keep updating self.best_state with best string so far.
         # self.best_state = start_state
